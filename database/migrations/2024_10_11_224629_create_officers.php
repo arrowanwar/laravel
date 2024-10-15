@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('officers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('office_code',50);
+            $table->foreign('office_code')->references('id')->on('offices')->restrictOnDelete()->cascadeOnUpdate();
             $table->string('email')->unique();
             $table->string('otp');
             $table->timestamp('create_at')->useCurrent();
