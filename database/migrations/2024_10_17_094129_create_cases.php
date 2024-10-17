@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('officers', function (Blueprint $table) {
+        Schema::create('cases', function (Blueprint $table) {
             $table->id();
-            $table->string('office_code',50);
-            $table->foreign('office_code')->references('office_code')->on('offices')->restrictOnDelete()->cascadeOnUpdate();
-            $table->string('email')->unique();
-            $table->string('otp');
+            $table->enum('source', ['enquery','asset']);
+            $table->decimal('acuse_qnt');
+            $table->string('case_no');
+            $table->date('case_date');
+            $table->unsignedBigInteger('er_id');
             $table->timestamp('create_at')->useCurrent();
             $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('officers');
+        Schema::dropIfExists('cases');
     }
 };
